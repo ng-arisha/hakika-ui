@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "./store-provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,7 +31,11 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.className}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <StoreProvider>
+          {children}
+        </StoreProvider>
+      </body>
     </html>
   );
 }

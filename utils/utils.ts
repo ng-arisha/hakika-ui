@@ -27,3 +27,6 @@ export const sideNavLinks = [
         
     }
 ]
+
+export const isClient = typeof window !== "undefined";
+export const BASE_URL = "https://api.betwise.com/v1/";
