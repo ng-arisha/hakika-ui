@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import StoreProvider from "./store-provider";
 
@@ -33,6 +34,15 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <StoreProvider>
+        <Toaster
+                toastOptions={{
+                  style: {
+                    fontSize: "10px",
+                  },
+                  duration: 3000,
+                }}
+                position="top-right"
+              />
           {children}
         </StoreProvider>
       </body>
