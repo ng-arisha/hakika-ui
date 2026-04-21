@@ -48,7 +48,14 @@ export const login = createAsyncThunk(
   const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers:{},
+    reducers:{
+      logout: (state) => {
+        state.access_token = null;
+        state.refresh_token = null;
+        state.user = null;
+        toast.success("Logged out successfully!");
+      }
+    },
     extraReducers: (builder) => {
 
         // Login
@@ -57,8 +64,8 @@ export const login = createAsyncThunk(
         });
         builder.addCase(login.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.access_token = action.payload.data.tokens.access_token;
-            state.refresh_token = action.payload.data.tokens.refresh_token;
+            state.access_token = action.payload.data.tokens.accessToken;
+            state.refresh_token = action.payload.data.tokens.refreshToken;
               state.user = action.payload.data.user;
               toast.success("Login successful!");
         });
@@ -69,5 +76,7 @@ export const login = createAsyncThunk(
         });
     }
   })
+
+  export const { logout } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

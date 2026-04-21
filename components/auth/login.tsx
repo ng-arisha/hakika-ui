@@ -26,7 +26,7 @@ function LoginComponent() {
         toast.error("Tafadhali jaza nambari ya simu na nywila");
         return;
     }
-    const formattedPhone = `+255${phone}`;
+    //const formattedPhone = `+255${phone}`;
     const data = {
         username: phone,
         password
