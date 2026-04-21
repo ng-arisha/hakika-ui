@@ -45,6 +45,34 @@ export const login = createAsyncThunk(
     }
   );
 
+  export const register = createAsyncThunk(
+    "auth/register",
+    async (
+      data: { username: string; password: string,name:string },
+      { rejectWithValue }
+    ) => {
+      try {
+        console.log(`url: ${BASE_URL}auth/register`);
+        const response = await fetch(`${BASE_URL}/auth/register`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        console.log(response);
+        const res = await response.json();
+  
+        if (!response.ok) {
+          return rejectWithValue(res.message);
+        }
+        return res;
+      } catch (error) {
+        return rejectWithValue(error);
+      }
+    }
+  );
+
   const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -73,6 +101,25 @@ export const login = createAsyncThunk(
             state.loading = "failed";
             console.error("Login failed:", payload);
             toast.error(`Login failed: ${payload}`);
+        });
+
+
+        // Register
+
+        builder.addCase(register.pending, (state) => {
+            state.loading = "pending";
+        });
+        builder.addCase(register.fulfilled, (state, action) => {
+            state.loading = "succeeded";
+            state.access_token = action.payload.data.tokens.accessToken;
+            state.refresh_token = action.payload.data.tokens.refreshToken;
+              state.user = action.payload.data.user;
+            toast.success("Registration successful.");
+        });
+        builder.addCase(register.rejected, (state,{payload}) => {
+            state.loading = "failed";
+            console.error("Registration failed:", payload);
+            toast.error(`Registration failed: ${payload}`);
         });
     }
   })
