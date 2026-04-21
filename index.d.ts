@@ -69,3 +69,25 @@ declare type AccuracyFilter =
   | "90%+ Elite"
   | "80–90% Pro"
   | "70–80% Standard";
+
+
+
+
+  declare type User = {
+    _id: string;
+    name: string;
+    username: string;
+    handle: Handle;
+    role: Role;
+  }
+
+  declare type Role ={
+    _id: string;
+    name: string;
+    permissions: string[];
+  }
+
+  declare type Handle = {
+    x: string | null;
+    instagram: string | null;
+  }

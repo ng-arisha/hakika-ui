@@ -4,18 +4,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface InitialAuthState {
     loading: 'idle' | 'pending' | 'succeeded' | 'failed';
-    token: string | null;
+    access_token: string | null;
+    refresh_token: string | null;
+    user: User | null;
 }
 
 const initialState: InitialAuthState = {
     loading: 'idle',
-    token: null,
+    access_token: null,
+    refresh_token: null,
+    user: null,
 }
 
 export const login = createAsyncThunk(
     "auth/login",
     async (
-      data: { phoneNumber: string; password: string },
+      data: { username: string; password: string },
       { rejectWithValue }
     ) => {
       try {
@@ -52,7 +56,9 @@ export const login = createAsyncThunk(
         });
         builder.addCase(login.fulfilled, (state, action) => {
             state.loading = "succeeded";
-            state.token = action.payload.token;
+            state.access_token = action.payload.data.tokens.access_token;
+            state.refresh_token = action.payload.data.tokens.refresh_token;
+              state.user = action.payload.data.user;
         });
         builder.addCase(login.rejected, (state) => {
             state.loading = "failed";
