@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/utils/utils";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 
 interface InitialAuthState {
@@ -24,7 +25,7 @@ export const login = createAsyncThunk(
     ) => {
       try {
         console.log(`url: ${BASE_URL}auth/login`);
-        const response = await fetch(`${BASE_URL}auth/login`, {
+        const response = await fetch(`${BASE_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,9 +60,12 @@ export const login = createAsyncThunk(
             state.access_token = action.payload.data.tokens.access_token;
             state.refresh_token = action.payload.data.tokens.refresh_token;
               state.user = action.payload.data.user;
+              toast.success("Login successful!");
         });
-        builder.addCase(login.rejected, (state) => {
+        builder.addCase(login.rejected, (state,{payload}) => {
             state.loading = "failed";
+            console.error("Login failed:", payload);
+            toast.error(`Login failed: ${payload}`);
         });
     }
   })

@@ -1,7 +1,13 @@
 "use client";
 
+import { login } from "@/lib/auth/auth";
+import { AppDispatch, RootState } from "@/lib/store";
+import { Sun } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginComponent() {
 
@@ -9,9 +15,28 @@ function LoginComponent() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const loading = useSelector((state: RootState) => state.auth.loading);
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
-  const handleSubmit = () => {}
+  const handleSubmit = async(e:React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(!phone || !password) {
+       
+        toast.error("Tafadhali jaza nambari ya simu na nywila");
+        return;
+    }
+    const formattedPhone = `+255${phone}`;
+    const data = {
+        username: phone,
+        password
+    }
+
+    const res = await dispatch(login(data));
+    if(login.fulfilled.match(res)) {
+      router.push("/");
+    }
+  }
     return (
         <div className="min-h-screen bg-[#0a0f0a] flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
       {/* Background texture */}
@@ -55,18 +80,18 @@ function LoginComponent() {
             {/* Phone */}
             <div>
               <label className="block text-xs font-semibold text-[#8ab88a] uppercase tracking-wider mb-2">
-                Nambari ya Simu
+                Username
               </label>
               <div className="flex rounded-xl overflow-hidden border border-[#1a4a2e] focus-within:border-[#c9a227] transition-colors duration-200">
-                <span className="bg-[#1a4a2e]/60 text-[#c9a227] font-bold px-3 flex items-center text-sm border-r border-[#1a4a2e] select-none">
+                {/* <span className="bg-[#1a4a2e]/60 text-[#c9a227] font-bold px-3 flex items-center text-sm border-r border-[#1a4a2e] select-none">
                   +255
-                </span>
+                </span> */}
                 <input
-                  type="tel"
-                  placeholder="7XX XXX XXX"
+                  type="text"
+                  placeholder="John_doe"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  maxLength={9}
+                  // maxLength={9}
                   required
                   className="flex-1 bg-[#0d1a0d] text-white placeholder-[#3a5a3a] px-4 py-3 text-sm outline-none"
                 />
@@ -134,24 +159,18 @@ function LoginComponent() {
             {/* Submit */}
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={loading === "pending"}
               className="w-full py-3.5 rounded-xl font-bold text-sm uppercase tracking-widest transition-all duration-200 relative overflow-hidden group"
               style={{
-                background: isLoading
+                background: loading === "pending"
                   ? "#1a4a2e"
                   : "linear-gradient(135deg, #c9a227 0%, #f0c040 50%, #c9a227 100%)",
-                color: isLoading ? "#4a7a4a" : "#0a0f0a",
+                color: loading==='pending' ? "#4a7a4a" : "#0a0f0a",
               }}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
-                {isLoading ? (
-                  <>
-                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Inaingia...
-                  </>
+                {loading==='pending' ? (
+                  <Sun className="animate-spin text-[#4a7a4a]" size={16} />
                 ) : (
                   "Ingia"
                 )}
