@@ -36,7 +36,7 @@ const TierBadge = ({ tier }: TierBadgeProps) => {
   );
 };
 interface TopTipsterCardProps {
-  tipster: TopTipster;
+  tipster: TipSter;
   featured?: boolean;
 }
 function TopTipSterCard({ tipster, featured = false }: TopTipsterCardProps) {
@@ -52,48 +52,48 @@ function TopTipSterCard({ tipster, featured = false }: TopTipsterCardProps) {
       }}
     >
       <Link
-      href={`/tipsters/${tipster.id}`}
+      href={`/tipsters/${tipster._id}`}
       className="flex flex-col items-center text-center gap-2">
-        <TierBadge tier={tipster.tier} />
+        {/* <TierBadge tier={tipster.tier} /> */}
         <AvatarCard
-          initials={tipster.initials}
-          bg={tipster.avatarBg}
+          initials={tipster.displayName.slice(0, 2).toUpperCase()}
+          bg="#6B21A8"
           border={accentColor}
           size="lg"
         />
         <div>
           <div className="flex items-center justify-center gap-1">
             <span className="font-bold text-white text-[15px]">
-              {tipster.name}
+              {tipster.displayName}
             </span>
             <span className="text-emerald-400 text-sm">✓</span>
           </div>
-          <p className="text-gray-400 text-xs mt-0.5">{tipster.sports}</p>
+          <p className="text-gray-400 text-xs mt-0.5">{tipster.aiPersonality.preferredMarkets.join(",")}</p>
         </div>
       </Link>
 
-      <AccuracyBar accuracy={tipster.accuracy} color={accentColor} />
+      <AccuracyBar accuracy={tipster.stats.accuracyPercentage} color={accentColor} />
 
       <div className="grid grid-cols-3 gap-1 text-center mt-2 mb-4">
         <div>
           <p className="font-bold text-sm" style={{ color: accentColor }}>
-            {tipster.accuracy}%
+            {tipster.stats.accuracyPercentage}%
           </p>
           <p className="text-gray-500 text-[10px]">Accuracy</p>
         </div>
         <div>
-          <p className="font-bold text-sm text-white">{tipster.subs}</p>
+          <p className="font-bold text-sm text-white">{tipster.stats.subscriberCount}</p>
           <p className="text-gray-500 text-[10px]">Subs</p>
         </div>
         <div>
           <p className="font-bold text-sm text-emerald-400">
-            {tipster.thisWeek}
+            {tipster.stats.totalBetSlips}
           </p>
-          <p className="text-gray-500 text-[10px]">This Week</p>
+          <p className="text-gray-500 text-[10px]">Slips</p>
         </div>
       </div>
 
-      {tipster.free ? (
+      {/* {tipster.free ? (
         <button className="w-full py-2.5 rounded-xl font-semibold text-sm text-emerald-400 border border-emerald-700/50 bg-emerald-950/50 hover:bg-emerald-900/40 transition-colors">
           Follow Free
         </button>
@@ -108,7 +108,7 @@ function TopTipSterCard({ tipster, featured = false }: TopTipsterCardProps) {
         >
           Subscribe · {tipster.price}
         </button>
-      )}
+      )} */}
     </div>
   );
 }

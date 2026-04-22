@@ -123,7 +123,8 @@ declare type AccuracyFilter =
     accuracyPercentage: number;
     subscriberCount: number;
     lastTenResults: ("win" | "lose" | "pending")[];
-    createdAt: string;
+   
   };
+  createdAt: string;
 
  }
