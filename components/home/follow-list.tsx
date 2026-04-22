@@ -1,7 +1,6 @@
-import { followTipsters } from "@/utils/data"
 import FollowCard from "./follow-card"
 
-function FollowList() {
+function FollowList({tipsters}:{tipsters: TipSter[]}) {
     return (
         <section>
         <div className="flex items-center justify-between mb-4">
@@ -16,8 +15,8 @@ function FollowList() {
 
         {/* 1-col on mobile → 2-col on sm → 4-col on lg */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {followTipsters.map((t) => (
-            <FollowCard key={t.id} tipster={t} />
+          {tipsters.map((tipster) => (
+            <FollowCard key={tipster._id} tipster={tipster} />
           ))}
         </div>
       </section>

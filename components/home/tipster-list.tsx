@@ -3,6 +3,7 @@
 import { AppDispatch, RootState } from "@/lib/store";
 import { findTopTipsters } from "@/lib/tipsters/tipster";
 import { SunIcon } from "lucide-react";
+import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TopTipsterCard from "./top-tipster-card";
@@ -18,14 +19,14 @@ function TipSterList() {
     return (
         <section className="my-5">
             <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-sm md:text-2xl font-bold text-white flex items-center gap-2">
               🏆 Top{" "}
               <span style={{ color: "#22C55E" }}>Tipsters</span>{" "}
               This Week
             </h2>
-            <a href="#" className="text-sm font-medium hover:text-white transition-colors" style={{ color: "#22C55E" }}>
+            <Link href="/tipsters" className="text-sm font-medium hover:text-white transition-colors" style={{ color: "#22C55E" }}>
               See all tipsters →
-            </a>
+            </Link>
           </div>
            {
             loading === 'pending' ? (

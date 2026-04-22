@@ -1,8 +1,10 @@
 "use client";
 
+import { RootState } from "@/lib/store";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import AllTipSters from "../home/all-tipsters";
 import FollowList from "../home/follow-list";
-import TipSterList from "../home/tipster-list";
 
 interface FilterSelectProps {
   value: string;
@@ -29,6 +31,7 @@ function TipStersLayout() {
   const [sport, setSport] = useState<string>("All Sports");
   const [accuracy, setAccuracy] = useState<string>("Any Accuracy");
   const [tier, setTier] = useState<string>("All Tiers");
+  const tipsters = useSelector((state: RootState) => state.tipsters.allTipsters);
   return (
     <div>
       <div
@@ -84,8 +87,9 @@ function TipStersLayout() {
         </div>
       </div>
 
-      <TipSterList />
-      <FollowList />
+      {/* <TipSterList /> */}
+      <AllTipSters />
+      <FollowList tipsters={tipsters.slice(4)} />
     </div>
   );
 }
