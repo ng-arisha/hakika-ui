@@ -380,63 +380,7 @@ export default function MySubscriptions() {
       }}
     >
       {/* ── Navbar ── */}
-      <nav
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          backgroundColor: "rgba(13,17,23,0.96)",
-          backdropFilter: "blur(10px)",
-          borderBottom: "1px solid #1e293b",
-          padding: "12px 28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: "-0.4px", color: "#f1f5f9" }}>
-          Hakika<span style={{ color: "#4ade80" }}>Tips</span>
-        </span>
- 
-        {/* Desktop nav links — hidden on mobile via Tailwind utility */}
-        <div className="hidden md:flex" style={{ gap: 36, fontSize: 14 }}>
-          {navItems.map((item) => (
-            <button
-              key={item}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                fontSize: 14,
-                fontWeight: item === "Subscriptions" ? 600 : 400,
-                color: item === "Subscriptions" ? "#4ade80" : "#64748b",
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
- 
-        {/* Avatar */}
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            border: "2px solid #22c55e",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#4ade80",
-            fontWeight: 700,
-            fontSize: 12,
-            backgroundColor: "rgba(34,197,94,0.08)",
-          }}
-        >
-          JM
-        </div>
-      </nav>
+    
  
       {/* ── Content ── */}
       <main style={{ maxWidth: 1120, margin: "0 auto", padding: "32px 20px 60px" }}>

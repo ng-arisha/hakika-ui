@@ -79,6 +79,7 @@ declare type AccuracyFilter =
     username: string;
     handle: Handle;
     role: Role;
+    createdAt: string;
   }
 
   declare type Role ={
@@ -91,3 +92,38 @@ declare type AccuracyFilter =
     x: string | null;
     instagram: string | null;
   }
+
+ declare  type ProfileTab = "subscriptions" | "info";
+
+ declare type TipSter = {
+  _id: string;
+  displayName: string;
+  slug: string;
+  bio: string;
+  avatarUrl: string | null;
+  type:string;
+  riskLevel: string;
+  status: "active" | "inactive";
+  tags: string[];
+  isVerified: boolean;
+  isFeatured: boolean;
+  aiPersonality:{
+    minConfidenceThreshold: number;
+    maxTipsPerDay: number;
+    targetOddsMin: number;
+    targetOddsMax: number;
+    preferredMarkets: string[];
+    preferredLeagues: string[];
+
+  };
+  stats: {
+    totalBetSlips: number;
+    wonBetSlips: number;
+    lostBetSlips: number;
+    accuracyPercentage: number;
+    subscriberCount: number;
+    lastTenResults: ("win" | "lose" | "pending")[];
+    createdAt: string;
+  };
+
+ }

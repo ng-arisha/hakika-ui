@@ -1,9 +1,9 @@
-import MySubscriptions from "@/components/my-profile/my-profile"
+import MyProfileDisplay from "@/components/my-profile/my-profile-display"
 
 function MyProfile() {
     return (
         <div>
-            <MySubscriptions />
+          <MyProfileDisplay />
         </div>
     )
 }

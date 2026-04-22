@@ -86,7 +86,7 @@ function TopNav() {
               {/* My Account */}
               <li>
                 <Link
-                  href="/profile"
+                  href="/my-profile"
                   className="flex items-center gap-2 text-gray-200 hover:bg-gray-700 hover:text-white rounded-lg px-3 py-2 text-sm transition-colors"
                 >
                   <svg

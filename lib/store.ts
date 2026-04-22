@@ -1,17 +1,18 @@
 import { isClient } from "@/utils/utils";
 import { configureStore } from "@reduxjs/toolkit";
 import {
-    FLUSH,
-    PAUSE,
-    PERSIST,
-    persistReducer,
-    persistStore,
-    PURGE,
-    REGISTER,
-    REHYDRATE
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  persistReducer,
+  persistStore,
+  PURGE,
+  REGISTER,
+  REHYDRATE
 } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 import { authReducer } from "./auth/auth";
+import { tipsterReducer } from "./tipsters/tipster";
 
 
 const createNoopStorage = () => {
@@ -42,7 +43,7 @@ const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-   
+   tipsters: tipsterReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
